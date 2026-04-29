@@ -45,7 +45,17 @@ SUMMARY_PREFIX = (
     "summary — resume exactly from there. "
     "Respond ONLY to the latest user message "
     "that appears AFTER this summary. The current session state (files, "
-    "config, etc.) may reflect work described here — avoid repeating it:"
+    "config, etc.) may reflect work described here — avoid repeating it.\n"
+    "\n"
+    "EXCEPTIONS — the following are NOT background reference and remain "
+    "active and authoritative:\n"
+    "- Your persistent memory (loaded in the system prompt) — check it "
+    "before asking the user to repeat any information they have already "
+    "provided.\n"
+    "- Your skills (AGENTS.md, SOUL.md, skills listed in the system prompt) — "
+    "they are still active and must be followed.\n"
+    "- Your system prompt identity, platform hints, and tool definitions — "
+    "these remain in full effect as active instructions:"
 )
 LEGACY_SUMMARY_PREFIX = "[CONTEXT SUMMARY]:"
 
@@ -1322,7 +1332,7 @@ The user has requested that this compaction PRIORITISE preserving all informatio
             msg = messages[i].copy()
             if i == 0 and msg.get("role") == "system":
                 existing = msg.get("content")
-                _compression_note = "[Note: Some earlier conversation turns have been compacted into a handoff summary to preserve context space. The current session state may still reflect earlier work, so build on that summary and state rather than re-doing work.]"
+                _compression_note = "[Note: Some earlier conversation turns have been compacted into a handoff summary to preserve context space. The current session state may still reflect earlier work, so build on that summary and state rather than re-doing work. IMPORTANT: Your persistent memory and skills remain authoritative — check memory before asking the user to repeat any information.]"
                 if _compression_note not in _content_text_for_contains(existing):
                     msg["content"] = _append_text_to_content(
                         existing,
